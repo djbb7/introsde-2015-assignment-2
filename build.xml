@@ -103,7 +103,7 @@
                 </fileset>
             </copy>
         </target>
-        <target name="start">
+        <target name="run">
             <echo message="app start introsde.assignment2.ehealth.App in ${build.dir}" />
             <java classname="introsde.assignment2.ehealth.App" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
