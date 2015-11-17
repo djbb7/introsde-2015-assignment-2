@@ -74,10 +74,11 @@ public class PersonCollectionResource {
     	String s="";
     	for(Measurement m :person.getList()){
     		m.setPerson(person);
-    		//s+= String.format("Value: %s, FirstName: %s\n", m.getValue(), m.getPerson().getFirstname());
+    		if(m.getDate()==null){
+    			m.setDate(new Date());
+    		}
+    		s = "Value "+m.getValue()+", MeasureName: "+m.getMeasureDefinition().getName();
     	}
-    	//if(7==7)
-    	//throw new RuntimeException(String.format("lastname: %s\tList size: %d\n %s",person.getLastname(), person.getList().size(), s));
     	return Person.savePerson(person);
     }
     

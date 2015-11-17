@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -75,6 +76,13 @@ public class Measurement implements Serializable {
 	@Column(name = "value")
 	private String value;
 	
+	@Transient
+	private String measureTypeName;
+	
+	public void setMeasureTypeName(String m){
+		measureTypeName = m;
+	}
+	
     @Temporal(TemporalType.DATE) // defines the precision of the date attribute
 	@Column(name = "timestamp")
 	private Date date;
@@ -119,6 +127,10 @@ public class Measurement implements Serializable {
 	@XmlElement(name="measure")
 	public String getMeasureName(){
 		return measureDefinition.getName();
+	}
+	
+	public void setMeasureName(String name){
+		setMeasureDefinition(MeasureType.getMeasureTypeByName(name));
 	}
 	
 	@XmlElement(name="units")
