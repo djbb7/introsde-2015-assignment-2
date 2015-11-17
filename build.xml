@@ -49,7 +49,7 @@
         </target>
         <!-- PART 2: General properties definitions -->
         <property name="build.dir" value="build" />
-        <property name="src.dir" value="Examples/src" />
+        <property name="src.dir" value="src" />
         <property name="lib.dir" value="WebContent/WEB-INF/lib" />
         <property name="web.dir" value="." />
         <property name="webcontent.dir" value="WebContent" />
