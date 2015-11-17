@@ -12,7 +12,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
             <!-- the last part of the url is the path to the sqlite file of the db, in this case it should be
                  on the root folder of the project -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:/Users/danielbruzual/Documents/UNITN/sem1/SDE/introsde-2015-assignment-2/peoplehealth.sqlite" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:peoplehealth.sqlite" />
             <!-- set it to ALL to see all the JPA related debugging information --> 
             <property name="eclipselink.logging.level" value="ALL" />
         </properties>
