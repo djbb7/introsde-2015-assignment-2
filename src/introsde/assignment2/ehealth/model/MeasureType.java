@@ -61,9 +61,9 @@ public class MeasureType implements Serializable {
 	}
 
 	// database operations
-	public static MeasureType getMeasureDefinitionById(int personId) {
+	public static MeasureType getMeasureTypeByName(String name) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
-		MeasureType p = em.find(MeasureType.class, personId);
+		MeasureType p = em.find(MeasureType.class, name);
 		PersonHealthDao.instance.closeConnections(em);
 		return p;
 	}

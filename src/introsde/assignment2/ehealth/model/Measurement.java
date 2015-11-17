@@ -47,7 +47,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		@NamedQuery(name="Measurement.findForPersonByType",
 			query="SELECT m "
 				+ "FROM Measurement m "
-				+ "WHERE m.person=:person AND m.measureDefinition.name=:measurementType"
+				+ "WHERE m.person=:person AND m.measureDefinition.name=:measurementType "
+				+ "ORDER BY m.date DESC"
 		),
 		
 		@NamedQuery(name="Measurement.findMeasurement",
@@ -58,8 +59,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 				+ "AND m.id=:id"
 		)
 })
-@XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
+@XmlRootElement(name="measure")
 public class Measurement implements Serializable {
 	private static final long serialVersionUID = 1L;
 

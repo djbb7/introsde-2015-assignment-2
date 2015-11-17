@@ -1,9 +1,11 @@
 package introsde.assignment2.ehealth.resources;
 import introsde.assignment2.ehealth.model.MeasureHistory;
+import introsde.assignment2.ehealth.model.MeasureType;
 import introsde.assignment2.ehealth.model.Measurement;
 import introsde.assignment2.ehealth.model.Person;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -69,8 +71,14 @@ public class PersonCollectionResource {
     @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     public Person newPerson(Person person) throws IOException {
-        System.out.println("Creating new person...123");            
-        return Person.savePerson(person);
+    	String s="";
+    	for(Measurement m :person.getList()){
+    		m.setPerson(person);
+    		//s+= String.format("Value: %s, FirstName: %s\n", m.getValue(), m.getPerson().getFirstname());
+    	}
+    	//if(7==7)
+    	//throw new RuntimeException(String.format("lastname: %s\tList size: %d\n %s",person.getLastname(), person.getList().size(), s));
+    	return Person.savePerson(person);
     }
     
 
@@ -96,6 +104,26 @@ public class PersonCollectionResource {
     	Measurement m = p.getMeasurement(measureType, measurementId);
     	return m;
 	}
+
+    @POST
+    @Path("{personId}/{measureType}")
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML, MediaType.TEXT_XML})
+    public Measurement addMeasurement(
+    		Measurement m, 
+    		@PathParam("personId") int personId, 
+    		@PathParam("measureType") String measureType){
+    	
+    	m.setPerson(Person.getPersonById(personId));
+    	m.setMeasureDefinition(MeasureType.getMeasureTypeByName(measureType));
+    	if(m.getDate() == null){
+    		m.setDate(new Date());
+    	}
+    	
+    	Measurement created = Measurement.saveMeasure(m);
+    	return created;
+    }
+    
 
     
     // Defines that the next path parameter after the base url is
