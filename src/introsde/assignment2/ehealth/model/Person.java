@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -121,11 +122,17 @@ public class Person implements Serializable {
     
     public Measurement getMeasurement(String measurementType, int measurementId){
     	EntityManager em = PersonHealthDao.instance.createEntityManager();
-    	return em.createNamedQuery("Measurement.findMeasurement", Measurement.class)
-    		.setParameter("person", this)
-    		.setParameter("id", measurementId)
-    		.setParameter("measurementType", measurementType)
-    		.getSingleResult();
+    	Measurement m = null;
+    	try {
+    			m = em.createNamedQuery("Measurement.findMeasurement", Measurement.class)
+    		    		.setParameter("person", this)
+    		    		.setParameter("id", measurementId)
+    		    		.setParameter("measurementType", measurementType)
+    		    		.getSingleResult();
+    	} catch (NoResultException e){
+    		
+    	}
+    	return m; 
     }
     
     public static Person getPersonById(int personId) {

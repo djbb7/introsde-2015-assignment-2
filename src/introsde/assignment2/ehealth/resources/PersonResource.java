@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -42,22 +43,11 @@ public class PersonResource {
 
     // Application integration
     @GET
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
     public Person getPerson() {
         Person person = this.getPersonById(id);
         if (person == null)
-            throw new RuntimeException("Get: Person with " + id + " not found");
-        return person;
-    }
-
-    // for the browser
-    @GET
-    @Produces(MediaType.TEXT_XML)
-    public Person getPersonHTML() {
-        Person person = this.getPersonById(id);
-        if (person == null)
-            throw new RuntimeException("Get: Person with " + id + " not found");
-        System.out.println("Returning person... " + person.getId());
+        	throw new NotFoundException("Get: Person with " + id + " not found");
         return person;
     }
 
@@ -97,7 +87,8 @@ public class PersonResource {
         //Person person = entityManager.find(Person.class, personId); 
 
         Person person = Person.getPersonById(personId);
-        System.out.println("Person: "+person.toString());
+        if(person != null)
+        	System.out.println("Person: "+person.toString());
         return person;
     }
 }

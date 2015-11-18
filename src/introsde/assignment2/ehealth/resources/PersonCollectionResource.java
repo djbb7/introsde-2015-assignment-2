@@ -12,11 +12,13 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -90,6 +92,14 @@ public class PersonCollectionResource {
     		@PathParam("personId") int personId, 
     		@PathParam("measureType") String measureType ){
     	Person p = Person.getPersonById(personId);
+    	MeasureType mT = MeasureType.getMeasureTypeByName(measureType);
+    	
+    	if(p == null)
+    		throw new NotFoundException("Get: Person with " + personId + " not found");
+    	
+    	if(mT == null)
+    		throw new NotFoundException("Get: Invalid measureType");
+    	
     	MeasureHistory mH = new MeasureHistory(p, measureType);
     	return mH;
     }
@@ -102,8 +112,19 @@ public class PersonCollectionResource {
     		@PathParam("measureType") String measureType,
     		@PathParam("measurementId") int measurementId){
     	Person p = Person.getPersonById(personId);
-    	Measurement m = p.getMeasurement(measureType, measurementId);
-    	return m;
+    	MeasureType mT = MeasureType.getMeasureTypeByName(measureType);
+    	
+    	if(p == null)
+    		throw new NotFoundException("Get: Person with " + personId + " not found");
+    	
+    	if(mT == null)
+    		throw new NotFoundException("Get: Invalid measureType");
+    	
+		Measurement m = p.getMeasurement(measureType, measurementId);
+		if(m == null)
+			throw new NotFoundException("Get: Invalid measureType");
+    	
+		return m;
 	}
 
     @POST
