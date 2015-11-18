@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -63,6 +64,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 })
 @JsonIgnoreProperties(ignoreUnknown=true)
 @XmlRootElement(name="measure")
+@XmlType(propOrder={"id", "date", "measureName", "value", "measureUnits"})
 public class Measurement implements Serializable {
 	private static final long serialVersionUID = 1L;
 
