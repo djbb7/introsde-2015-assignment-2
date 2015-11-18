@@ -43,7 +43,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 				+ "WHERE m.person=:person AND m.date="
 				+ "(SELECT MAX(mm.date) "
 				+ "FROM Measurement mm "
-				+ "WHERE mm.person=m.person AND mm.measureDefinition=m.measureDefinition)"),
+				+ "WHERE mm.person=m.person AND mm.measureDefinition=m.measureDefinition) "
+				+ "GROUP BY m.measureDefinition"),
 			
 		@NamedQuery(name="Measurement.findForPersonByType",
 			query="SELECT m "
