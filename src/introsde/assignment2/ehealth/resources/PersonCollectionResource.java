@@ -73,13 +73,11 @@ public class PersonCollectionResource {
     @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     public Person newPerson(Person person) throws IOException {
-    	String s="";
     	for(Measurement m :person.getList()){
     		m.setPerson(person);
     		if(m.getDate()==null){
     			m.setDate(new Date());
     		}
-    		s = "Value "+m.getValue()+", MeasureName: "+m.getMeasureDefinition().getName();
     	}
     	return Person.savePerson(person);
     }
