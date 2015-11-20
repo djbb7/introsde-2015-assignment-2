@@ -5,14 +5,16 @@ import introsde.assignment2.ehealth.model.Measurement;
 import introsde.assignment2.ehealth.model.Person;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.management.RuntimeErrorException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
@@ -26,6 +28,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 @Stateless // will work only inside a Java EE application
@@ -72,14 +76,22 @@ public class PersonCollectionResource {
     @POST
     @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     @Consumes({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
-    public Person newPerson(Person person) throws IOException {
+    public Response newPerson(Person person) throws IOException {
     	for(Measurement m :person.getList()){
     		m.setPerson(person);
     		if(m.getDate()==null){
     			m.setDate(new Date());
     		}
     	}
-    	return Person.savePerson(person);
+    	Response res;
+    	person = Person.savePerson(person);
+    	URI location = null;
+    	try {
+    		location = new URI(uriInfo.getAbsolutePath().toString()+"/"+person.getId());
+    	} catch (URISyntaxException e){
+    	}
+    	res = Response.created(location).entity(person).build();
+		return res;
     }
     
 
@@ -129,19 +141,31 @@ public class PersonCollectionResource {
     @Path("{personId}/{measureType}")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML, MediaType.TEXT_XML})
-    public Measurement addMeasurement(
+    public Response addMeasurement(
     		Measurement m, 
     		@PathParam("personId") int personId, 
     		@PathParam("measureType") String measureType){
+    	URI location = null;
     	
-    	m.setPerson(Person.getPersonById(personId));
+    	Person p = Person.getPersonById(personId);
+    	
+    	if(p == null){
+    		return Response.status(Status.NOT_FOUND).build();
+    	}
+    	
+    	m.setPerson(p);
     	m.setMeasureDefinition(MeasureType.getMeasureTypeByName(measureType));
     	if(m.getDate() == null){
     		m.setDate(new Date());
     	}
+    	Measurement measure = Measurement.saveMeasure(m);
+
+    	try {
+    		location = new URI(uriInfo.getAbsolutePath().toString()+"/"+measure.getId());
+    	} catch (URISyntaxException e){
+    	}
     	
-    	Measurement created = Measurement.saveMeasure(m);
-    	return created;
+    	return Response.created(location).entity(measure).build();
     }
     
 

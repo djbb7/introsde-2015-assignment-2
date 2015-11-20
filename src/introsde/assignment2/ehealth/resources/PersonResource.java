@@ -62,10 +62,10 @@ public class PersonResource {
         if (existing == null) {
             res = Response.noContent().build();
         } else {
-            res = Response.created(uriInfo.getAbsolutePath()).build();
             person.setId(this.id);
             person.setHealthProfile(existing.getHealthProfile());
-            Person.updatePerson(person);
+            person = Person.updatePerson(person);
+            res = Response.ok(person).contentLocation(uriInfo.getAbsolutePath()).build();
         }
         return res;
     }
@@ -75,7 +75,7 @@ public class PersonResource {
     public void deletePerson() {
         Person c = getPersonById(id);
         if (c == null)
-            throw new RuntimeException("Delete: Person with " + id
+            throw new NotFoundException("Delete: Person with " + id
                     + " not found");
         Person.removePerson(c);
     }
