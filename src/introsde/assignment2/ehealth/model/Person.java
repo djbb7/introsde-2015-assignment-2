@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -93,22 +94,27 @@ public class Person implements Serializable {
     @XmlElement(name="measurement")
     @JsonProperty("healthProfile")
     public List<Measurement> getHealthProfile() {
-    	EntityManager em = PersonHealthDao.instance.createEntityManager();
-    	List<Measurement> list =  em.createNamedQuery("Measurement.findMostRecentForPerson", Measurement.class)
-    		.setParameter("person", this)
-        	.getResultList();
-        PersonHealthDao.instance.closeConnections(em);
-        return list;        
-    }
-    
-    @XmlTransient
-    public List<Measurement> getList(){
+    	if(getId()!=0){
+	    	EntityManager em = PersonHealthDao.instance.createEntityManager();
+	    	List<Measurement> list =  em.createNamedQuery("Measurement.findMostRecentForPerson", Measurement.class)
+	    		.setParameter("person", this)
+	        	.getResultList();
+	        PersonHealthDao.instance.closeConnections(em);
+	        return list;        
+    	}
     	return healthProfile;
     }
     
     public void setHealthProfile(List<Measurement> list){
     	this.healthProfile = list;
     }
+    
+    @XmlTransient
+    @Transient
+    public List<Measurement> getList(){
+    	return healthProfile;
+    }
+
     
     public List<Measurement> getMeasureHistory(String type){
     	EntityManager em = PersonHealthDao.instance.createEntityManager();
