@@ -2,6 +2,8 @@ package client;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -34,14 +36,31 @@ public class eHealthClient {
 	
 	static WebTarget service;
 	
-	static String outputFormat = "Request #%d: %s %s Accept: %s Content-type: %s\n"
+	static String outputFormatPUT = "Request #%d: %s %s Accept: %s Content-type: %s\n"
 								 +"=> Result: %s\n"
 								 +"=> HTTP Status: %d\n"
 								 +"%s\n";
+
+	static String outputFormatGET = "Request #%d: %s %s Accept: %s\n"
+								 +"=> Result: %s\n"
+								 +"=> HTTP Status: %d\n"
+								 +"%s\n";
+
+	static String outputFormatDELETE = "Request #%d: %s %s\n"
+								 +"=> Result: %s\n"
+								 +"=> HTTP Status: %d\n";
+
+	static String testHeader = "\n################################################################\n"+
+							   "## TEST %s \n"+
+							   "#--------------------------------------------------------------\n";
+	private static Person firstPerson, lastPerson, createdPerson;
+
+	//For passing one test's results to the next
+	private static String foundMeasureType;
+	private static int foundMeasureId;
+	private static int foundPersonId;
 	
-	private static Response responseLastRequest;
-	private static int validPersonId;
-	private static int validMeasureId;
+	private static MeasureTypeList measureTypes;
 	
 	public static void main(String[] args){
 		if(args.length < 1){
@@ -49,204 +68,259 @@ public class eHealthClient {
 			return;
 		}
 		
+		//#######################
+		//####    SET SERVER
+		//#######################
+		
 		ClientConfig clientConfig = new ClientConfig();
 		Client client = ClientBuilder.newClient(clientConfig);
 		service = client.target(args[0]);
 		
-		//#######################
-		//####    STEP 1
-		//#######################
 		System.out.println(String.format("Working with server: %s", args[0]));
 		
 		//#######################
-		//####    STEP 2
+		//####    RUN TESTS
 		//#######################
 		
-		/* * * * * * * * * *
-		 * Application/XML
-		 * * * * * * * * * */
-		
-		//R1: Read all people		-> GET /person
-		testR1(MediaType.APPLICATION_XML);
-		
-		//R2: Read specific person	-> GET /person/{id}
-		testR2(MediaType.APPLICATION_XML);
-		
-		//R3: Update person			-> PUT /person/{id} 
-		testR3(MediaType.APPLICATION_XML);
-		
-		//R4: Create person			-> POST /person
-		testR4(MediaType.APPLICATION_XML);
-		
-		//R5: Delete person			-> DELETE /person/{id}
-		testR5(MediaType.APPLICATION_XML);
-		
-		//R6: Read measure history	-> GET /person/{id}/{measureType}
-		testR6(MediaType.APPLICATION_XML);
-		
-		//R7: Read measure value	-> GET /person/{id}/{measureType}/{mid}
-		testR7(MediaType.APPLICATION_XML);
-		
-		//R8: Create measurement	-> POST /person/{id}/{measureType}
-		testR8(MediaType.APPLICATION_XML);
-		
-		//R9: Read measure types	-> GET /measureTypes
-		testR9(MediaType.APPLICATION_XML);
-		
-		/* * * * * * * * * *
-		 * Application/JSON
-		 * * * * * * * * * */
-		
-		//R1: Read all people		-> GET /person
-		testR1(MediaType.APPLICATION_JSON);
-		
-		//R2: Read specific person	-> GET /person/{id}
-		testR2(MediaType.APPLICATION_JSON);
-		
-		//R3: Update person			-> PUT /person/{id} 
-		testR3(MediaType.APPLICATION_JSON);
-		
-		//R4: Create person			-> POST /person
-		testR4(MediaType.APPLICATION_JSON);
-		
-		//R5: Delete person			-> DELETE /person/{id}
-		testR5(MediaType.APPLICATION_JSON);
-		
-		//R6: Read measure history	-> GET /person/{id}/{measureType}
-		testR6(MediaType.APPLICATION_JSON);
-		
-		//R7: Read measure value	-> GET /person/{id}/{measureType}/{mid}
-		testR7(MediaType.APPLICATION_JSON);
-		
-		//R8: Create measurement	-> POST /person/{id}/{measureType}
-		testR8(MediaType.APPLICATION_JSON);
-		
-		//R9: Read measure types	-> GET /measureTypes
-		testR9(MediaType.APPLICATION_JSON);
-	}
-
-	private static void testR1(String mediaType){
-		testGeneric(1, "/person", "GET", mediaType, 200, null);
-
-		List<Person> people = responseLastRequest.readEntity(new GenericType<List<Person>>() {});
-		validPersonId = people.get(people.size()-1).id;
-	}
-	
-	private static void testR2(String mediaType){
-		testGeneric(2, "/person/"+validPersonId, "GET", mediaType, 200, null);
-	}
-	
-	private static void testR3(String mediaType){
-		String body;
-		if(mediaType.equals(MediaType.APPLICATION_XML)){
-			body ="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><person>"
-				+    "<id>56</id>"
-				+    "<firstname>Sarai</firstname> "
-				+ "<lastname>Cardoso</lastname>"
-				 +   "<birthdate>1978-09-02T00:00:00+02:00</birthdate>"
-				+"</person>";
-		} else {
-			body = "{" +
-					  "\"id\": 1," +
-					  "\"firstname\": \"Sandra\", " +
-					  "\"lastname\": \"Cardosinho\"," +
-					  "\"birthdate\": 273535200000" +
-				  "}";
+		for(String mediaType : new String[]{MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}){
+			
+			//Read all people, save firstPerson and lastPerson 's ids
+			testStep__3_1(mediaType);
+			
+			//Read firstPerson
+			testStep__3_2(mediaType);
+			
+			//Update firstPerson's firstname 
+			testStep__3_3(mediaType);
+			
+			//Create person	"Chuck Norris"
+			testStep__3_4(mediaType);
+			
+			//Delete person	"Chuck Norris" and check he was deleted
+			testStep__3_5(mediaType);
+			
+			//Read measure types
+			testStep__3_6(mediaType);
+			
+			//Read measure history for firstPerson,secondPerson and every measureType
+			//Save a valid measurement's id
+			testStep__3_7(mediaType);
+			
+			//Read saved measurement by id
+			testStep__3_8(mediaType);
+			
+			//Count measurements for person and measureType;
+			//Create new measurement;
+			//Check count increased
+			testStep__3_9(mediaType);		
 		}
-		testGeneric(3, "/person/"+validPersonId, "PUT", mediaType, 200, body);
-	}
-	
-	private static void testR4(String mediaType){
-		String body;
-		
-		if(mediaType.equals(MediaType.APPLICATION_XML)){
-			body = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"+
-						"<person>"+
-						"    <firstname>Peter</firstname>"+
-						"    <lastname>Smith</lastname>"+
-						"    <birthdate>1994-09-02T00:00:00+02:00</birthdate>"+
-						"    <healthProfile>"+
-						"        <measurement>"+
-						"            <measure>height</measure>"+
-						"            <value>172</value>>"+
-						"        </measurement>"+
-						"        <measurement>"+
-						"            <measure>weight</measure>"+
-						"            <value>58</value>"+
-						"        </measurement>"+
-						"    </healthProfile>"+
-						"</person>";
-		} else {
-			body = "{"+
-				   "  \"firstname\": \"Payel\","+
-				   "  \"lastname\": \"Kalabak\","+
-				   "  \"birthdate\": 273535200000,"+
-				   "  \"healthProfile\": ["+
-				   "    {"+
-				   "      \"measure\": \"height\","+
-				   "      \"value\": \"199\""+
-				   "    },"+
-				   "    {"+
-				   "      \"created\": 1433628000000,"+
-				   "      \"measure\": \"weight\","+
-				   "      \"value\": \"75\""+
-				   "    }"+
-				   "  ]"+
-				   "}";
-		}
-		
-		testGeneric(4, "/person", "POST", mediaType, 201, body);
-	}
-	
-	private static void testR5(String mediaType){
-		String[] pathNewPerson = responseLastRequest.getLocation().getPath().split("/", 0);
-		testGeneric(5, "/person/"+pathNewPerson[pathNewPerson.length-1], "DELETE", mediaType, 204, null);
 	}
 
-	private static void testR6(String mediaType){
-		testGeneric(6, "/person/"+validPersonId+"/weight", "GET", mediaType, 200, null);
+	private static void testStep__3_1(String mediaType){
+		System.out.println(String.format(testHeader, "3.1"));
 
-		//save for future tests
-		if(mediaType.equals(MediaType.APPLICATION_XML)){
-			validMeasureId = responseLastRequest.readEntity(MeasureHistory.class).getMeasurements().get(0).mid;
+		Response r = testGeneric(1, "/person", "GET", mediaType, null);
+
+		List<Person> people = r.readEntity(new GenericType<List<Person>>() {});
+		
+		String status = (people.size()>2)? "OK" : "ERROR";
+		printResult(1, "GET", "/person", mediaType, status, r);
+		
+		if(people.size()>0){
+			firstPerson = people.get(0);
+			lastPerson = people.get(people.size()-1);
 		} else {
-			validMeasureId = responseLastRequest.readEntity(new GenericType<List<Measurement>>() {}).get(0).mid;
+			System.err.println("Error: empty people database. Cannot proceed.");
+			System.exit(0);
 		}
 	}
 	
-	private static void testR7(String mediaType){
-		testGeneric(7, "/person/"+validPersonId+"/weight/"+validMeasureId, "GET", mediaType, 200, null);
+	private static void testStep__3_2(String mediaType){
+		System.out.println(String.format(testHeader, "3.2"));
+		
+		Response r = testGeneric(2, "/person/"+firstPerson.id, "GET", mediaType, null);
+		
+		String status = (r.getStatus() == 200 || r.getStatus() == 202)? "OK" : "ERROR";
+		
+		printResult(2, "GET", "/person/"+firstPerson.id, mediaType, status, r);
 	}
 	
-	private static void testR8(String mediaType){
-		String body;
-		if(mediaType.equals(MediaType.APPLICATION_XML)){
-			body = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"+
-					  "<measure>"+
-					  "    <value>82</value>"+
-					  "</measure>";
-		} else {
-			body = "{"+
-					  "\"value\": \"66.5\""+
-					"}";
+	private static void testStep__3_3(String mediaType){
+		System.out.println(String.format(testHeader, "3.3"));
+
+		String newName = new StringBuilder(firstPerson.firstname).reverse().toString();
+		firstPerson.firstname = newName;
+		Response r = testGeneric(3, "/person/"+firstPerson.id, "PUT", mediaType, firstPerson);
+		Person responsePerson = r.readEntity(Person.class);
+		String status = (responsePerson.firstname.equals(newName))? "OK" : "ERROR";
+		
+		printResult(3, "PUT", "/person/"+firstPerson.id, mediaType, status, r);
+	}
+	
+	private static void testStep__3_4(String mediaType){
+		System.out.println(String.format(testHeader, "3.4"));
+
+		Person chuck = new Person();
+		chuck.firstname = "Chuck";
+		chuck.lastname = "Norris";
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 1945);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		chuck.birthdate = cal.getTime();
+		chuck.healthProfile = new ArrayList<Measurement>();
+		chuck.healthProfile.add(new Measurement("weight", "78.9"));
+		chuck.healthProfile.add(new Measurement("height", "172"));
+		
+		Response r = testGeneric(4, "/person", "POST", mediaType, chuck);
+		Person responsePerson = r.readEntity(Person.class);
+		String status = (responsePerson.id != 0 &&
+				(r.getStatus() == 200 || r.getStatus() == 201 || r.getStatus() == 202))? "OK" : "ERROR";
+
+		printResult(4, "POST", "/person", mediaType, status, r);
+
+		createdPerson = responsePerson;
+	}
+	
+	private static void testStep__3_5(String mediaType){
+		System.out.println(String.format(testHeader, "3.5"));
+
+		Response r = testGeneric(5, "/person/"+createdPerson.id, "DELETE", mediaType, null);
+		
+		String status = (r.getStatus() == 204)?"OK":"ERROR";
+		printResult(5, "DELETE", "/person/"+createdPerson.id, mediaType, status, r);
+		
+		r = testGeneric(2, "/person/"+createdPerson.id, "GET", mediaType, null);
+		
+		status = (r.getStatus() == 404)? "OK" : "ERROR";
+		
+		printResult(2, "GET", "/person/"+createdPerson.id, mediaType, status, r);
+	}
+	
+	private static void testStep__3_6(String mediaType){
+		System.out.println(String.format(testHeader, "3.6"));
+
+		Response r = testGeneric(9, "/measureTypes", "GET", mediaType, null);
+		
+		MeasureTypeList m = r.readEntity(MeasureTypeList.class);
+		
+		String status = (m.getMeasureTypes().size()>2)? "OK" : "ERROR";
+		printResult(9, "GET", "/measureTypes", mediaType, status, r);
+		
+		measureTypes = m;
+	}
+	
+	private static void testStep__3_7(String mediaType){
+		System.out.println(String.format(testHeader, "3.7"));
+
+		ArrayList<Response> responseHist = new ArrayList<Response>();
+		String status = "ERROR";
+		String foundMeasureType = null;
+		for(Person p : new Person[]{firstPerson, lastPerson}){
+			for(String measureType : measureTypes.getMeasureTypes()){
+				Response r = testGeneric(6, "/person/"+p.id+"/"+measureType, "GET", mediaType, null);
+				List<Measurement> measurements = null;
+				if(mediaType.equals(MediaType.APPLICATION_XML)){
+					measurements = r.readEntity(MeasureHistory.class).getMeasurements();
+				} else if (mediaType.equals(MediaType.APPLICATION_JSON)){
+					measurements = r.readEntity(new GenericType<List<Measurement>>() {});
+				}
+				
+				if(measurements!=null && measurements.size() > 0){
+						eHealthClient.foundMeasureType = foundMeasureType = measureType;
+						eHealthClient.foundMeasureId = measurements.get(0).mid;
+						eHealthClient.foundPersonId = p.id;
+				}		
+				responseHist.add(r);
+			}
 		}
 		
-		testGeneric(8, "/person/"+validPersonId+"/weight", "POST", mediaType, 201, body);
+		if(foundMeasureType != null){
+			status = "OK";
+		}
+		
+		int i = 0;
+		for(Person p: new Person[]{firstPerson, lastPerson}){
+			for(String measureType : measureTypes.getMeasureTypes()){
+				printResult(6, "GET", "/person/"+p.id+"/"+measureType, mediaType, status, responseHist.get(i));
+				i++;
+			}
+		}
 	}
 	
-	private static void testR9(String mediaType){
-		testGeneric(9, "/measureTypes", "GET", mediaType, 200, null);
+	private static void testStep__3_8(String mediaType){
+		System.out.println(String.format(testHeader, "3.8"));
+
+		String path = "/person/"+foundPersonId+"/"
+				  		+foundMeasureType+"/"
+				  		+foundMeasureId;
+		Response r = testGeneric(7, path, "GET", mediaType, null);
+		
+		String status = (r.getStatus() == 200)? "OK" : "ERROR";
+		
+		printResult(7, "GET", path, mediaType, status, r);
 	}
 	
-	private static void testGeneric(int reqNumber, String URIPath,  String method, String mediaType, int expectedResponse,
-									String requestBody){
+	private static void testStep__3_9(String mediaType){
+		System.out.println(String.format(testHeader, "3.9"));
+
+		String status;
+		//Calculate initial measurement count
+		String measureType = measureTypes.getMeasureTypes().get(0);
+		String pathInitial = "/person/"+firstPerson.id+"/"+measureType;
+		Response rInitial = testGeneric(6, pathInitial, "GET", mediaType, null);
+		
+		List<Measurement> measurements = null;
+		if(mediaType.equals(MediaType.APPLICATION_XML)){
+			measurements = rInitial.readEntity(MeasureHistory.class).getMeasurements();
+		} else if (mediaType.equals(MediaType.APPLICATION_JSON)){
+			measurements = rInitial.readEntity(new GenericType<List<Measurement>>() {});
+		}
+		int initialCount = measurements.size();
+		status = (rInitial.getStatus() == 200)?"OK":"ERROR";
+		printResult(6, "GET", pathInitial, mediaType, status, rInitial);
+
+		//Add new measure
+		String pathAdd = "/person/"+firstPerson.id+"/"+measureType;
+		String newMeasure;
+		
+		if(mediaType.equals(MediaType.APPLICATION_XML)){
+			newMeasure = "<measure>"+
+							"<value>72</value>"+
+							"<created>2011-12-09</created>"+
+							"</measure>";
+		} else {
+			newMeasure = "{"+
+							  "\"value\": \"66.5\","+
+							  "\"date\": \"2011-12-09\""+
+							"}";
+		}
+		Response rAdd = testGeneric(8, pathAdd, "POST", mediaType, newMeasure);
+		status = (rAdd.getStatus() == 200 || rAdd.getStatus() == 201 || rAdd.getStatus() == 202)?
+				 "OK" : "ERROR";
+		printResult(8, "POST", pathAdd, mediaType, status, rAdd);
+		
+		//Check measure count increased
+		Response rFinal = testGeneric(6, pathInitial, "GET", mediaType, null);
+		
+		if(mediaType.equals(MediaType.APPLICATION_XML)){
+			measurements = rFinal.readEntity(MeasureHistory.class).getMeasurements();
+		} else if (mediaType.equals(MediaType.APPLICATION_JSON)){
+			measurements = rFinal.readEntity(new GenericType<List<Measurement>>() {});
+		}
+		int finalCount = measurements.size();
+		status = (finalCount == initialCount+1)? "OK":"ERROR";
+		printResult(6, "GET", pathInitial, mediaType, status, rFinal);
+	}
+	
+	private static Response testGeneric(int reqNumber, String URIPath,  String method, String mediaType, Object requestBody){
 		Response response = null;
 		Invocation.Builder builder = service.path(URIPath)
 				.request()
 				.accept(mediaType)
 				.header("Content-Type", mediaType);
 		
-		Entity<String> body = null;
+		Entity<Object> body = null;
 		if(requestBody != null){
 			if(mediaType.equals(MediaType.APPLICATION_XML)){
 				body = Entity.xml(requestBody);
@@ -268,12 +342,25 @@ public class eHealthClient {
 		}
 		
 		response.bufferEntity();
-		responseLastRequest = response;
-		int statusCode = response.getStatus();
-		String result = response.readEntity(String.class);
-		String  status = (statusCode == expectedResponse)? "OK" : "ERROR";
-		String prettyPrint = (mediaType == MediaType.APPLICATION_XML)? prettyXML(result, 5): prettyJSON(result, 5);
-		System.out.println(String.format(outputFormat, reqNumber, method, URIPath, mediaType, mediaType, status, statusCode, prettyPrint));
+		return response;
+	}
+	
+	private static void printResult(int reqNumber, String reqMethod, String path, String acceptType, String statusString, Response r){
+		int statusCode = r.getStatus();
+		String result = r.readEntity(String.class);
+		String prettyPrint = "";
+		if(result != null && result.length() !=0){
+			prettyPrint = (r.getMediaType().toString().equals(MediaType.APPLICATION_XML))? prettyXML(result, 5): prettyJSON(result, 5);
+		}
+
+		if(reqMethod.equals("GET")){
+			System.out.println(String.format(outputFormatGET, reqNumber, reqMethod, path , acceptType, statusString, statusCode, prettyPrint));			
+		} else if(reqMethod.equals("PUT") || reqMethod.equals("POST")){
+			System.out.println(String.format(outputFormatPUT, reqNumber, reqMethod, path , acceptType, r.getMediaType().toString(), statusString, statusCode, prettyPrint));			
+		} else if(reqMethod.equals("DELETE")){
+			System.out.println(String.format(outputFormatDELETE, reqNumber, reqMethod, path, statusString, statusCode));			
+		}
+
 	}
 	
 	private static String prettyJSON(String jsonString, int indent){
@@ -294,9 +381,6 @@ public class eHealthClient {
 	}
 	
 	private static String prettyXML(String xml, int indent) {
-		if(xml==null || xml.length()==0)
-			return "";
-		
 	    try {
 	        // Turn xml string into a document
 	        Document document = DocumentBuilderFactory.newInstance()
