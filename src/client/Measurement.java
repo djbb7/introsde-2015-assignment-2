@@ -17,4 +17,18 @@ public class Measurement {
 	
 	public String units;
 	
+	public Measurement(){
+		
+	}
+	
+	public Measurement(String m, String v){
+		measure = m;
+		value = v;
+	}
+	
+	public Measurement(String m, String v, Date d){
+		measure = m;
+		value = v;
+		created = d;
+	}
 }
