@@ -1,0 +1,625 @@
+     [java] Working with server: https://damp-cliffs-5416.herokuapp.com/rest
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] #####
+     [java] ###   Running tests with Accept and Content-type: APPLICATION/JSON
+     [java] #
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.1 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #1: GET /person Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "id": 56,
+     [java]           "measure": [
+     [java]                {
+     [java]                     "created": 1447974000000,
+     [java]                     "value": "72",
+     [java]                     "type": "weight"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448236800000,
+     [java]                     "value": "72",
+     [java]                     "type": "height"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1447974000000,
+     [java]                     "value": "72",
+     [java]                     "type": "bloodpressure"
+     [java]                }
+     [java]           ],
+     [java]           "email": "mickey-mouse@gmail.com",
+     [java]           "birthdate": 1417478400000,
+     [java]           "lastname": "Mouse",
+     [java]           "firstname": "Yikcem"
+     [java]      },
+     [java]      {
+     [java]           "id": 407,
+     [java]           "measure": [],
+     [java]           "email": "donald-duck@gmail.com",
+     [java]           "birthdate": -1133485200000,
+     [java]           "lastname": "Duck",
+     [java]           "firstname": "Donald"
+     [java]      },
+     [java]      {
+     [java]           "id": 556,
+     [java]           "measure": [{
+     [java]                "created": 1447974000000,
+     [java]                "value": "67",
+     [java]                "type": "weight"
+     [java]           }],
+     [java]           "email": "minnie-mouse@gmail.com",
+     [java]           "birthdate": -1312419600000,
+     [java]           "lastname": "Mouse",
+     [java]           "firstname": "Minnie"
+     [java]      },
+     [java]      {
+     [java]           "id": 706,
+     [java]           "measure": [],
+     [java]           "email": "minnie-mouse@gmail.com",
+     [java]           "birthdate": -1186189200000,
+     [java]           "lastname": "Dawg",
+     [java]           "firstname": "Dippy"
+     [java]      },
+     [java]      {
+     [java]           "id": 1606,
+     [java]           "measure": [
+     [java]                {
+     [java]                     "created": 1448233200000,
+     [java]                     "value": "75",
+     [java]                     "type": "weight"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448233200000,
+     [java]                     "value": "100",
+     [java]                     "type": "height"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448233200000,
+     [java]                     "value": "100",
+     [java]                     "type": "bloodpressure"
+     [java]                }
+     [java]           ],
+     [java]           "email": "puto-pup@gmail.com",
+     [java]           "birthdate": -1238806800000,
+     [java]           "lastname": "The Pup",
+     [java]           "firstname": "Pluto"
+     [java]      },
+     [java]      {
+     [java]           "id": 1663,
+     [java]           "measure": [
+     [java]                {
+     [java]                     "created": 1448314207076,
+     [java]                     "value": "78.9",
+     [java]                     "type": "weight"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448314207076,
+     [java]                     "value": "172",
+     [java]                     "type": "height"
+     [java]                }
+     [java]           ],
+     [java]           "email": null,
+     [java]           "birthdate": null,
+     [java]           "lastname": "Norris",
+     [java]           "firstname": "Chuck"
+     [java]      },
+     [java]      {
+     [java]           "id": 1664,
+     [java]           "measure": [
+     [java]                {
+     [java]                     "created": 1448314378936,
+     [java]                     "value": "78.9",
+     [java]                     "type": "weight"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448314378936,
+     [java]                     "value": "172",
+     [java]                     "type": "height"
+     [java]                }
+     [java]           ],
+     [java]           "email": null,
+     [java]           "birthdate": -788840844768,
+     [java]           "lastname": "Norris",
+     [java]           "firstname": "Chuck"
+     [java]      },
+     [java]      {
+     [java]           "id": 1665,
+     [java]           "measure": [
+     [java]                {
+     [java]                     "created": 1448236800000,
+     [java]                     "value": "78.9",
+     [java]                     "type": "weight"
+     [java]                },
+     [java]                {
+     [java]                     "created": 1448236800000,
+     [java]                     "value": "172",
+     [java]                     "type": "height"
+     [java]                }
+     [java]           ],
+     [java]           "email": null,
+     [java]           "birthdate": -788918400000,
+     [java]           "lastname": "Norris",
+     [java]           "firstname": "Chuck"
+     [java]      }
+     [java] ]
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.2 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #2: GET /person/56 Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] {
+     [java]      "id": 56,
+     [java]      "measure": [
+     [java]           {
+     [java]                "created": 1447974000000,
+     [java]                "value": "72",
+     [java]                "type": "weight"
+     [java]           },
+     [java]           {
+     [java]                "created": 1448236800000,
+     [java]                "value": "72",
+     [java]                "type": "height"
+     [java]           },
+     [java]           {
+     [java]                "created": 1447974000000,
+     [java]                "value": "72",
+     [java]                "type": "bloodpressure"
+     [java]           }
+     [java]      ],
+     [java]      "email": "mickey-mouse@gmail.com",
+     [java]      "birthdate": 1417478400000,
+     [java]      "lastname": "Mouse",
+     [java]      "firstname": "Yikcem"
+     [java] }
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.3 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #3: PUT /person/56 Accept: application/json Content-type: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] {
+     [java]      "id": 56,
+     [java]      "measure": [
+     [java]           {
+     [java]                "created": 1447974000000,
+     [java]                "value": "72",
+     [java]                "type": "weight"
+     [java]           },
+     [java]           {
+     [java]                "created": 1448236800000,
+     [java]                "value": "72",
+     [java]                "type": "height"
+     [java]           },
+     [java]           {
+     [java]                "created": 1447974000000,
+     [java]                "value": "72",
+     [java]                "type": "bloodpressure"
+     [java]           }
+     [java]      ],
+     [java]      "email": "mickey-mouse@gmail.com",
+     [java]      "birthdate": 1417478400000,
+     [java]      "lastname": "Mouse",
+     [java]      "firstname": "meckiY"
+     [java] }
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.4 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #4: POST /person Accept: application/json Content-type: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 201
+     [java] {
+     [java]      "id": 1681,
+     [java]      "measure": [
+     [java]           {
+     [java]                "created": 1448320279466,
+     [java]                "value": "78.9",
+     [java]                "type": "weight"
+     [java]           },
+     [java]           {
+     [java]                "created": 1448320279466,
+     [java]                "value": "172",
+     [java]                "type": "height"
+     [java]           }
+     [java]      ],
+     [java]      "email": null,
+     [java]      "birthdate": -788921320893,
+     [java]      "lastname": "Norris",
+     [java]      "firstname": "Chuck"
+     [java] }
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.5 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #5: DELETE /person/1681
+     [java] => Result: OK
+     [java] => HTTP Status: 204
+     [java] 
+     [java] Request #2: GET /person/1681 Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 404
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.6 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #9: GET /measureTypes Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {"value": "height"},
+     [java]      {"value": "bloodpressure"},
+     [java]      {"value": "weight"}
+     [java] ]
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.7 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "140",
+     [java]           "mid": 1373
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311894038,
+     [java]           "value": "72",
+     [java]           "mid": 1955
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311927091,
+     [java]           "value": "72",
+     [java]           "mid": 1958
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312631349,
+     [java]           "value": "72",
+     [java]           "mid": 1959
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312890488,
+     [java]           "value": "72",
+     [java]           "mid": 1960
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313161792,
+     [java]           "value": "72",
+     [java]           "mid": 1961
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313458555,
+     [java]           "value": "72",
+     [java]           "mid": 1962
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313543741,
+     [java]           "value": "72",
+     [java]           "mid": 1963
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319814540,
+     [java]           "value": "66.5",
+     [java]           "mid": 1990
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319903288,
+     [java]           "value": "72",
+     [java]           "mid": 1991
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319916237,
+     [java]           "value": "66.5",
+     [java]           "mid": 1994
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320079005,
+     [java]           "value": "72",
+     [java]           "mid": 1995
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320102062,
+     [java]           "value": "66.5",
+     [java]           "mid": 1998
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320274542,
+     [java]           "value": "72",
+     [java]           "mid": 1999
+     [java]      }
+     [java] ]
+     [java] 
+     [java] Request #6: GET /person/56/bloodpressure Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "72",
+     [java]           "mid": 1757
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "79.9",
+     [java]           "mid": 1758
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "79.9",
+     [java]           "mid": 1803
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "79.9",
+     [java]           "mid": 1804
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "72",
+     [java]           "mid": 1862
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "72",
+     [java]           "mid": 1863
+     [java]      }
+     [java] ]
+     [java] 
+     [java] Request #6: GET /person/56/weight Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "created": 1447714800000,
+     [java]           "value": "80",
+     [java]           "mid": 1366
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "67",
+     [java]           "mid": 1665
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "72",
+     [java]           "mid": 1711
+     [java]      },
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "72",
+     [java]           "mid": 1857
+     [java]      }
+     [java] ]
+     [java] 
+     [java] Request #6: GET /person/1665/height Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [{
+     [java]      "created": 1448314651574,
+     [java]      "value": "172",
+     [java]      "mid": 1969
+     [java] }]
+     [java] 
+     [java] Request #6: GET /person/1665/bloodpressure Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] []
+     [java] 
+     [java] Request #6: GET /person/1665/weight Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [{
+     [java]      "created": 1448236800000,
+     [java]      "value": "78.9",
+     [java]      "mid": 1968
+     [java] }]
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.8 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #7: GET /person/1665/weight/1968 Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] {
+     [java]      "created": 1448236800000,
+     [java]      "value": "78.9",
+     [java]      "mid": 1968
+     [java] }
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.9 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "140",
+     [java]           "mid": 1373
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311894038,
+     [java]           "value": "72",
+     [java]           "mid": 1955
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311927091,
+     [java]           "value": "72",
+     [java]           "mid": 1958
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312631349,
+     [java]           "value": "72",
+     [java]           "mid": 1959
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312890488,
+     [java]           "value": "72",
+     [java]           "mid": 1960
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313161792,
+     [java]           "value": "72",
+     [java]           "mid": 1961
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313458555,
+     [java]           "value": "72",
+     [java]           "mid": 1962
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313543741,
+     [java]           "value": "72",
+     [java]           "mid": 1963
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319814540,
+     [java]           "value": "66.5",
+     [java]           "mid": 1990
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319903288,
+     [java]           "value": "72",
+     [java]           "mid": 1991
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319916237,
+     [java]           "value": "66.5",
+     [java]           "mid": 1994
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320079005,
+     [java]           "value": "72",
+     [java]           "mid": 1995
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320102062,
+     [java]           "value": "66.5",
+     [java]           "mid": 1998
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320274542,
+     [java]           "value": "72",
+     [java]           "mid": 1999
+     [java]      }
+     [java] ]
+     [java] 
+     [java] Request #8: POST /person/56/height Accept: application/json Content-type: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] {
+     [java]      "created": 1448320296140,
+     [java]      "value": "66.5",
+     [java]      "type": "height"
+     [java] }
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/json
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] [
+     [java]      {
+     [java]           "created": 1447974000000,
+     [java]           "value": "140",
+     [java]           "mid": 1373
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311894038,
+     [java]           "value": "72",
+     [java]           "mid": 1955
+     [java]      },
+     [java]      {
+     [java]           "created": 1448311927091,
+     [java]           "value": "72",
+     [java]           "mid": 1958
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312631349,
+     [java]           "value": "72",
+     [java]           "mid": 1959
+     [java]      },
+     [java]      {
+     [java]           "created": 1448312890488,
+     [java]           "value": "72",
+     [java]           "mid": 1960
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313161792,
+     [java]           "value": "72",
+     [java]           "mid": 1961
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313458555,
+     [java]           "value": "72",
+     [java]           "mid": 1962
+     [java]      },
+     [java]      {
+     [java]           "created": 1448313543741,
+     [java]           "value": "72",
+     [java]           "mid": 1963
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319814540,
+     [java]           "value": "66.5",
+     [java]           "mid": 1990
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319903288,
+     [java]           "value": "72",
+     [java]           "mid": 1991
+     [java]      },
+     [java]      {
+     [java]           "created": 1448319916237,
+     [java]           "value": "66.5",
+     [java]           "mid": 1994
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320079005,
+     [java]           "value": "72",
+     [java]           "mid": 1995
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320102062,
+     [java]           "value": "66.5",
+     [java]           "mid": 1998
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320274542,
+     [java]           "value": "72",
+     [java]           "mid": 1999
+     [java]      },
+     [java]      {
+     [java]           "created": 1448320296140,
+     [java]           "value": "66.5",
+     [java]           "mid": 2002
+     [java]      }
+     [java] ]
+     [java] 

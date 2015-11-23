@@ -1,0 +1,615 @@
+     [java] Working with server: https://damp-cliffs-5416.herokuapp.com/rest
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] #####
+     [java] ###   Running tests with Accept and Content-type: APPLICATION/XML
+     [java] #
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.1 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #1: GET /person Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <people>
+     [java]      <person>
+     [java]           <id>56</id>
+     [java]           <firstname>meckiY</firstname>
+     [java]           <lastname>Mouse</lastname>
+     [java]           <email>mickey-mouse@gmail.com</email>
+     [java]           <birthdate>2014-12-02T00:00:00Z</birthdate>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>72</value>
+     [java]                     <created>2015-11-19T23:00:00Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>height</type>
+     [java]                     <value>66.5</value>
+     [java]                     <created>2015-11-23T00:00:00Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>bloodpressure</type>
+     [java]                     <value>72</value>
+     [java]                     <created>2015-11-19T23:00:00Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>407</id>
+     [java]           <firstname>Donald</firstname>
+     [java]           <lastname>Duck</lastname>
+     [java]           <email>donald-duck@gmail.com</email>
+     [java]           <birthdate>1934-01-30T23:00:00Z</birthdate>
+     [java]           <healthProfile/>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>556</id>
+     [java]           <firstname>Minnie</firstname>
+     [java]           <lastname>Mouse</lastname>
+     [java]           <email>minnie-mouse@gmail.com</email>
+     [java]           <birthdate>1928-05-30T23:00:00Z</birthdate>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>67</value>
+     [java]                     <created>2015-11-19T23:00:00Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>706</id>
+     [java]           <firstname>Dippy</firstname>
+     [java]           <lastname>Dawg</lastname>
+     [java]           <email>minnie-mouse@gmail.com</email>
+     [java]           <birthdate>1932-05-30T23:00:00Z</birthdate>
+     [java]           <healthProfile/>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>1606</id>
+     [java]           <firstname>Pluto</firstname>
+     [java]           <lastname>The Pup</lastname>
+     [java]           <email>puto-pup@gmail.com</email>
+     [java]           <birthdate>1930-09-29T23:00:00Z</birthdate>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>75</value>
+     [java]                     <created>2015-11-22T23:00:00Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>height</type>
+     [java]                     <value>100</value>
+     [java]                     <created>2015-11-22T23:00:00Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>bloodpressure</type>
+     [java]                     <value>100</value>
+     [java]                     <created>2015-11-22T23:00:00Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>1663</id>
+     [java]           <firstname>Chuck</firstname>
+     [java]           <lastname>Norris</lastname>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>78.9</value>
+     [java]                     <created>2015-11-23T21:30:07.076Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>height</type>
+     [java]                     <value>172</value>
+     [java]                     <created>2015-11-23T21:30:07.076Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>1664</id>
+     [java]           <firstname>Chuck</firstname>
+     [java]           <lastname>Norris</lastname>
+     [java]           <birthdate>1945-01-01T21:32:35.232Z</birthdate>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>78.9</value>
+     [java]                     <created>2015-11-23T21:32:58.936Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>height</type>
+     [java]                     <value>172</value>
+     [java]                     <created>2015-11-23T21:32:58.936Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java]      <person>
+     [java]           <id>1665</id>
+     [java]           <firstname>Chuck</firstname>
+     [java]           <lastname>Norris</lastname>
+     [java]           <birthdate>1945-01-01T00:00:00Z</birthdate>
+     [java]           <healthProfile>
+     [java]                <measure>
+     [java]                     <type>weight</type>
+     [java]                     <value>78.9</value>
+     [java]                     <created>2015-11-23T00:00:00Z</created>
+     [java]                </measure>
+     [java]                <measure>
+     [java]                     <type>height</type>
+     [java]                     <value>172</value>
+     [java]                     <created>2015-11-23T00:00:00Z</created>
+     [java]                </measure>
+     [java]           </healthProfile>
+     [java]      </person>
+     [java] </people>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.2 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #2: GET /person/56 Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <person>
+     [java]      <id>56</id>
+     [java]      <firstname>meckiY</firstname>
+     [java]      <lastname>Mouse</lastname>
+     [java]      <email>mickey-mouse@gmail.com</email>
+     [java]      <birthdate>2014-12-02T00:00:00Z</birthdate>
+     [java]      <healthProfile>
+     [java]           <measure>
+     [java]                <type>weight</type>
+     [java]                <value>72</value>
+     [java]                <created>2015-11-19T23:00:00Z</created>
+     [java]           </measure>
+     [java]           <measure>
+     [java]                <type>height</type>
+     [java]                <value>66.5</value>
+     [java]                <created>2015-11-23T00:00:00Z</created>
+     [java]           </measure>
+     [java]           <measure>
+     [java]                <type>bloodpressure</type>
+     [java]                <value>72</value>
+     [java]                <created>2015-11-19T23:00:00Z</created>
+     [java]           </measure>
+     [java]      </healthProfile>
+     [java] </person>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.3 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #3: PUT /person/56 Accept: application/xml Content-type: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <person>
+     [java]      <id>56</id>
+     [java]      <firstname>Yikcem</firstname>
+     [java]      <lastname>Mouse</lastname>
+     [java]      <email>mickey-mouse@gmail.com</email>
+     [java]      <birthdate>2014-12-02T00:00:00Z</birthdate>
+     [java]      <healthProfile>
+     [java]           <measure>
+     [java]                <type>weight</type>
+     [java]                <value>72</value>
+     [java]                <created>2015-11-19T23:00:00Z</created>
+     [java]           </measure>
+     [java]           <measure>
+     [java]                <type>height</type>
+     [java]                <value>66.5</value>
+     [java]                <created>2015-11-23T00:00:00Z</created>
+     [java]           </measure>
+     [java]           <measure>
+     [java]                <type>bloodpressure</type>
+     [java]                <value>72</value>
+     [java]                <created>2015-11-19T23:00:00Z</created>
+     [java]           </measure>
+     [java]      </healthProfile>
+     [java] </person>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.4 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #4: POST /person Accept: application/xml Content-type: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 201
+     [java] <person>
+     [java]      <id>1680</id>
+     [java]      <firstname>Chuck</firstname>
+     [java]      <lastname>Norris</lastname>
+     [java]      <birthdate>1944-12-31T23:11:01.446Z</birthdate>
+     [java]      <healthProfile/>
+     [java] </person>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.5 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #5: DELETE /person/1680
+     [java] => Result: OK
+     [java] => HTTP Status: 204
+     [java] 
+     [java] Request #2: GET /person/1680 Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 404
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.6 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #9: GET /measureTypes Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <measureTypes>
+     [java]      <measureType>height</measureType>
+     [java]      <measureType>bloodpressure</measureType>
+     [java]      <measureType>weight</measureType>
+     [java] </measureTypes>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.7 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1373</mid>
+     [java]           <value>140</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1955</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:51:34.038Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1958</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:52:07.091Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1959</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:03:51.349Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1960</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:08:10.488Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1961</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:12:41.792Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1962</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:17:38.555Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1963</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:19:03.741Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1990</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:03:34.540Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1991</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:05:03.288Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1994</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:05:16.237Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1995</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:07:59.005Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1998</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:08:22.062Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/56/bloodpressure Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1757</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1758</mid>
+     [java]           <value>79.9</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1803</mid>
+     [java]           <value>79.9</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1804</mid>
+     [java]           <value>79.9</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1862</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1863</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/56/weight Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1366</mid>
+     [java]           <value>80</value>
+     [java]           <created>2015-11-16T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1665</mid>
+     [java]           <value>67</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1711</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1857</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/1665/height Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1969</mid>
+     [java]           <value>172</value>
+     [java]           <created>2015-11-23T21:37:31.574Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/1665/bloodpressure Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories/>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/1665/weight Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1968</mid>
+     [java]           <value>78.9</value>
+     [java]           <created>2015-11-23T00:00:00Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.8 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #7: GET /person/1665/weight/1968 Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <measure>
+     [java]      <mid>1968</mid>
+     [java]      <value>78.9</value>
+     [java]      <created>2015-11-23T00:00:00Z</created>
+     [java] </measure>
+     [java] 
+     [java] 
+     [java] 
+     [java] ###################################################################
+     [java] ## TEST 3.9 
+     [java] #-----------------------------------------------------------------
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1373</mid>
+     [java]           <value>140</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1955</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:51:34.038Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1958</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:52:07.091Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1959</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:03:51.349Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1960</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:08:10.488Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1961</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:12:41.792Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1962</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:17:38.555Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1963</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:19:03.741Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1990</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:03:34.540Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1991</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:05:03.288Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1994</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:05:16.237Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1995</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:07:59.005Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1998</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:08:22.062Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
+     [java] Request #8: POST /person/56/height Accept: application/xml Content-type: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <measure>
+     [java]      <type>height</type>
+     [java]      <value>72</value>
+     [java]      <created>2015-11-23T23:11:14.542Z</created>
+     [java] </measure>
+     [java] 
+     [java] 
+     [java] Request #6: GET /person/56/height Accept: application/xml
+     [java] => Result: OK
+     [java] => HTTP Status: 200
+     [java] <healthProfileHistories>
+     [java]      <measure>
+     [java]           <mid>1373</mid>
+     [java]           <value>140</value>
+     [java]           <created>2015-11-19T23:00:00Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1955</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:51:34.038Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1958</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T20:52:07.091Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1959</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:03:51.349Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1960</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:08:10.488Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1961</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:12:41.792Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1962</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:17:38.555Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1963</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T21:19:03.741Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1990</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:03:34.540Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1991</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:05:03.288Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1994</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:05:16.237Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1995</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:07:59.005Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1998</mid>
+     [java]           <value>66.5</value>
+     [java]           <created>2015-11-23T23:08:22.062Z</created>
+     [java]      </measure>
+     [java]      <measure>
+     [java]           <mid>1999</mid>
+     [java]           <value>72</value>
+     [java]           <created>2015-11-23T23:11:14.542Z</created>
+     [java]      </measure>
+     [java] </healthProfileHistories>
+     [java] 
+     [java] 
