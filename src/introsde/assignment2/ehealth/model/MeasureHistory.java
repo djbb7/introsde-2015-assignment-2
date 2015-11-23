@@ -28,7 +28,5 @@ public class MeasureHistory {
 	public List<Measurement> getMeasureHistory(){
 		return measureHistory;
 	}
-
-	
 	
 }
