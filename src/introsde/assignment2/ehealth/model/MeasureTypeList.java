@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * POJO for getting the list of valid Measure Types
+ */
 @XmlRootElement(name="measureTypes")
 @Entity
 public class MeasureTypeList {

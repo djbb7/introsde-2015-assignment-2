@@ -17,8 +17,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-@Stateless // only used if the the application is deployed in a Java EE container
-@LocalBean // only used if the the application is deployed in a Java EE container
+@Stateless
+@LocalBean
 public class PersonResource {
     @Context
     UriInfo uriInfo;
@@ -26,7 +26,7 @@ public class PersonResource {
     Request request;
     int id;
 
-    EntityManager entityManager; // only used if the application is deployed in a Java EE container
+    EntityManager entityManager; 
 
     public PersonResource(UriInfo uriInfo, Request request,int id, EntityManager em) {
         this.uriInfo = uriInfo;
@@ -41,7 +41,10 @@ public class PersonResource {
         this.id = id;
     }
 
-    // Application integration
+    /**
+     * Get a Person by his id
+     * @return
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
     public Person getPerson() {
@@ -51,11 +54,14 @@ public class PersonResource {
         return person;
     }
 
+    /**
+     * Update a Person. HTTP status code set to 200 in case of success.
+     * @param person
+     * @return A copy of the updated Person
+     */
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Response putPerson(Person person) {
-        System.out.println("--> Updating Person... " +this.id);
-        System.out.println("--> "+person.toString());
         Response res;
         Person existing = getPersonById(this.id);
 
@@ -71,6 +77,9 @@ public class PersonResource {
     }
     
 
+    /**
+     * Delete a Person. HTTP status code set to 204 if success.
+     */
     @DELETE
     public void deletePerson() {
         Person c = getPersonById(id);
@@ -80,12 +89,8 @@ public class PersonResource {
         Person.removePerson(c);
     }
 
-    public Person getPersonById(int personId) {
-        System.out.println("Reading person from DB with id: "+personId);
-
-        // this will work within a Java EE container, where not DAO will be needed
-        //Person person = entityManager.find(Person.class, personId); 
-
+    //Auxiliary method
+    private Person getPersonById(int personId) {
         Person person = Person.getPersonById(personId);
         if(person != null)
         	System.out.println("Person: "+person.toString());

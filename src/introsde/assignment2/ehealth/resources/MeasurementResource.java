@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-@Stateless // only used if the the application is deployed in a Java EE container
-@LocalBean // only used if the the application is deployed in a Java EE container
+@Stateless
+@LocalBean
 @Path("/measureTypes")
 public class MeasurementResource {
 	@Context
@@ -25,20 +25,16 @@ public class MeasurementResource {
 	@Context
 	Request request;
 
-	
-    // will work only inside a Java EE application
     @PersistenceUnit(unitName="introsde-2015-assignment-2-jpa")
-    EntityManager entityManager; // only used if the application is deployed in a Java EE container
+    EntityManager entityManager;
     
-    // will work only inside a Java EE application
     @PersistenceContext(unitName = "introsde-2015-assignment-2-jpa",type=PersistenceContextType.TRANSACTION)
     private EntityManagerFactory entityManagerFactory;
     
-    // Return the list of people to the user in the browser
+    // Return the list of valid Measure Type's
     @GET
-    @Produces({MediaType.TEXT_XML,  MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
+    @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML})
     public MeasureTypeList getMeasureTypes() {
-        //List<MeasureType> list = MeasureType.getAll();
         MeasureTypeList list = new MeasureTypeList();
     	return list;
     }

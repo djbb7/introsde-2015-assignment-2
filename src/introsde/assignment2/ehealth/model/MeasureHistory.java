@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * POJO for representing a Person's measure history
+ */
 @XmlRootElement
 public class MeasureHistory {
 

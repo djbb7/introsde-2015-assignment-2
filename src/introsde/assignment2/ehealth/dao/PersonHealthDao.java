@@ -4,6 +4,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+/**
+ * Singleton for handling connections to the DB
+ */
 public enum PersonHealthDao {
     instance;
     private EntityManagerFactory emf;

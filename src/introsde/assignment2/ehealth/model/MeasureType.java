@@ -16,14 +16,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
 /**
- * The persistent class for the "MeasureType" database table.
- * 
+ * The persistent class for the "MeasureType" database table. 
  */
 @Table(name="MeasureDefinition")
 @NamedQuery(name="MeasureType.findAll", query="SELECT m FROM MeasureType m")
@@ -61,6 +59,11 @@ public class MeasureType implements Serializable {
 	}
 
 	// database operations
+	
+	/**
+	 * @param name Id of the Measure Type
+	 * @return The Measure Type, or null if not found
+	 */
 	public static MeasureType getMeasureTypeByName(String name) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		MeasureType p = em.find(MeasureType.class, name);
@@ -68,6 +71,10 @@ public class MeasureType implements Serializable {
 		return p;
 	}
 	
+	/**
+	 * Get all existing Measure Type's
+	 * @return
+	 */
 	public static List<MeasureType> getAll() {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 	    List<MeasureType> list = em.createNamedQuery("MeasureType.findAll", MeasureType.class).getResultList();
@@ -75,45 +82,56 @@ public class MeasureType implements Serializable {
 	    return list;
 	}
 	
-	public static MeasureType saveMeasureType(MeasureType p) {
+	/**
+	 * Save a new Measure Type to the database
+	 * @param m Measure Type to be created
+	 * @return The created Measure Type
+	 */
+	public static MeasureType saveMeasureType(MeasureType m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		em.persist(p);
+		em.persist(m);
 		tx.commit();
 	    PersonHealthDao.instance.closeConnections(em);
-	    return p;
+	    return m;
 	}
 	
-	public static MeasureType updateMeasureType(MeasureType p) {
+	/**
+	 * Update an existing Measure Type
+	 * @param m Measure Type to be modified
+	 * @return The Updated Measure Type
+	 */
+	public static MeasureType updateMeasureType(MeasureType m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		p=em.merge(p);
+		m=em.merge(m);
 		tx.commit();
 	    PersonHealthDao.instance.closeConnections(em);
-	    return p;
+	    return m;
 	}
 	
-	public static void removeMeasureType(MeasureType p) {
+	/**
+	 * Delete an existing Measure Type
+	 * @param m
+	 */
+	public static void removeMeasureType(MeasureType m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-	    p=em.merge(p);
-	    em.remove(p);
+	    m=em.merge(m);
+	    em.remove(m);
 	    tx.commit();
 	    PersonHealthDao.instance.closeConnections(em);
 	}
 	
+	/*
+	 * Custom JSON representation for marshalling 
+	 */
 	@JsonValue 
 	public String toString() {
 		return getName();
 	}
-
-	
-	/*public static List<MeasureType> getMeasureTypes(){
-		
-	}*/
-	
 
 }

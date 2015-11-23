@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the "Measurement" database table.
- * 
+ * A Measurement is a specific value of a Measure Type for a
+ * specific Person.
  */
 @Entity
 @Table(name = "Measurement")
@@ -152,9 +153,14 @@ public class Measurement implements Serializable {
 		this.person = person;
 	}
 	
+	
 	// Database operations
-	// Notice that, for this example, we create and destroy and entityManager on each operation. 
-	// How would you change the DAO to not having to create the entity manager every time? 
+	
+	/**
+	 * Given an id, retrieve the corresponding Measurement
+	 * @param measureId
+	 * @return
+	 */
 	public static Measurement getMeasureById(int measureId) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		Measurement m = em.find(Measurement.class, measureId);
@@ -162,6 +168,10 @@ public class Measurement implements Serializable {
 		return m;
 	}
 	
+	/**
+	 * Get the list of all Measurements for all Person's
+	 * @return
+	 */
 	public static List<Measurement> getAll() {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 	    List<Measurement> list = em.createNamedQuery("Measurement.findAll", Measurement.class).getResultList();
@@ -169,6 +179,11 @@ public class Measurement implements Serializable {
 	    return list;
 	}
 	
+	/**
+	 * Save a new Measurement in the database
+	 * @param m Measurement to be created
+	 * @return Measurement with id set
+	 */
 	public static Measurement saveMeasure(Measurement m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -179,6 +194,11 @@ public class Measurement implements Serializable {
 	    return m;
 	}
 	
+	/**
+	 * Update a Measurement
+	 * @param m Measurement to be updated
+	 * @return Measurement with updated fields
+	 */
 	public static Measurement updateMeasure(Measurement m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -189,6 +209,10 @@ public class Measurement implements Serializable {
 	    return m;
 	}
 	
+	/**
+	 * Delete a Measurement from the database
+	 * @param m Measurement to be deleted
+	 */
 	public static void removeMeasure(Measurement m) {
 		EntityManager em = PersonHealthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();

@@ -30,8 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-@Entity  // indicates that this class is an entity to persist in DB
-@Table(name="Person") // to whole table must be persisted 
+
+/**
+ * The persistent class for the "MeasureType" database table. 
+ */
+@Entity
+@Table(name="Person")
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
 @XmlType(propOrder={"id", "firstname", "lastname", "birthdate", "healthProfile"})
 @XmlRootElement
@@ -93,6 +97,9 @@ public class Person implements Serializable {
     @XmlElementWrapper(name="healthProfile")
     @XmlElement(name="measurement")
     @JsonProperty("healthProfile")
+    /**
+     * @return A list containing the 2 latest measurements of every type for this person.
+     */
     public List<Measurement> getHealthProfile() {
     	if(getId()!=0){
 	    	EntityManager em = PersonHealthDao.instance.createEntityManager();
@@ -109,13 +116,24 @@ public class Person implements Serializable {
     	this.healthProfile = list;
     }
     
+    /**
+     * Get all the Person's measures, not just the latest
+     * @return
+     */
     @XmlTransient
     @Transient
     public List<Measurement> getList(){
     	return healthProfile;
     }
-
     
+    
+    // database operations
+    
+    /**
+     * 
+     * @param type Measure type
+     * @return A list containing the history of measurements of type 'type' for this person.
+     */
     public List<Measurement> getMeasureHistory(String type){
     	EntityManager em = PersonHealthDao.instance.createEntityManager();
         List<Measurement> list = em.createNamedQuery("Measurement.findForPersonByType", Measurement.class)
@@ -126,6 +144,12 @@ public class Person implements Serializable {
         return list;
     }
     
+    /**
+     * Get a person's measurement by type and id
+     * @param measurementType Measure type
+     * @param measurementId Measure id
+     * @return
+     */
     public Measurement getMeasurement(String measurementType, int measurementId){
     	EntityManager em = PersonHealthDao.instance.createEntityManager();
     	Measurement m = null;
@@ -141,6 +165,11 @@ public class Person implements Serializable {
     	return m; 
     }
     
+    /**
+     * Retrieve a Person from the database by id
+     * @param personId id of the Person
+     * @return The Person if exists, else null
+     */
     public static Person getPersonById(int personId) {
         EntityManager em = PersonHealthDao.instance.createEntityManager();
         Person p = em.find(Person.class, personId);
@@ -148,6 +177,10 @@ public class Person implements Serializable {
         return p;
     }
 
+    /**
+     * Get all Person's in database
+     * @return
+     */
     public static List<Person> getAll() {
         EntityManager em = PersonHealthDao.instance.createEntityManager();
         List<Person> list = em.createNamedQuery("Person.findAll", Person.class)
@@ -156,6 +189,11 @@ public class Person implements Serializable {
         return list;
     }
 
+    /**
+     * Save a new Person to the database
+     * @param p Person to be saved
+     * @return Returns a copy of the Person object, with id set
+     */
     public static Person savePerson(Person p) {
         EntityManager em = PersonHealthDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -166,6 +204,11 @@ public class Person implements Serializable {
         return p;
     } 
 
+    /**
+     * Save an existing Person to the database
+     * @param p Person to be saved
+     * @return Return a copy of the Person object
+     */
     public static Person updatePerson(Person p) {
         EntityManager em = PersonHealthDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
@@ -176,6 +219,10 @@ public class Person implements Serializable {
         return p;
     }
 
+    /**
+     * Delete a Person from the database
+     * @param p Person to be deleted
+     */
     public static void removePerson(Person p) {
         EntityManager em = PersonHealthDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
