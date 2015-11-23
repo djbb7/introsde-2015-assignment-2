@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * POJO for handling Measurement response from Server
  */
 @XmlRootElement(name="measure")//TODO: Added for working with Fiorini's schema
-public class Measurement {
+public class MeasurementWithId {
 	
-	//private int mid;
+	private int mid;
 	
 	public Date created;
 	
@@ -21,27 +21,26 @@ public class Measurement {
 	
 	public String value;
 	
-	
-	public Measurement(){
+	public MeasurementWithId(){
 		
 	}
 	
-	public Measurement(String m, String v){
+	public MeasurementWithId(String m, String v){
 		measure = m;
 		value = v;
 	}
 	
-	public Measurement(String m, String v, Date d){
+	public MeasurementWithId(String m, String v, Date d){
 		measure = m;
 		value = v;
 		created = d;
 	}
 	
-	/*public int getMid(){
+	public int getMid(){
 		return mid;
 	}
 	
 	public void setMid(int mid){
 		this.mid = mid;
-	}*/
+	}
 }

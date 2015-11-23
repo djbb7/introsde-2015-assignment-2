@@ -21,14 +21,24 @@ public class Person {
 	
 	public String lastname;
 	
-	public Date birthdate;
+	private Date birthdate;
 	
-    @XmlElementWrapper(name="healthProfile")
-    @XmlElement(name="measurement")
-    @JsonProperty("healthProfile")
-	public List<Measurement> healthProfile;
+	public String email; //TODO: Added for working with Fiorini's schema
+	
+//    @XmlElementWrapper(name="healthProfile")
+    //TODO: Changed from "measurement" to "measure" to work with Fiorini's server
+    //TODO: changed from "healthProfile" to "measure" to work with Fiorini's server
+	public List<Measurement> measure;
 	
 	public Person(){
 		
+	}
+	
+	public Date getBirthdate(){
+		return birthdate;
+	}
+	
+	public void setBirthdate(Date d){
+		birthdate = d;
 	}
 }
