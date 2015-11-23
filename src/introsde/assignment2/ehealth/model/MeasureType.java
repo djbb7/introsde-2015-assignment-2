@@ -45,13 +45,13 @@ public class MeasureType implements Serializable {
 		return this.name;
 	}
 
-	public void setName(String measureName) {
-		this.name = measureName;
-	}
-
 	@XmlTransient
 	public String getMeasureUnits(){
 		return this.units;
+	}
+	
+	public void setName(String measureName) {
+		this.name = measureName;
 	}
 
 	public void setMeasureUnits(String units){

@@ -98,13 +98,38 @@ public class Measurement implements Serializable {
 	public int getId() {
 		return this.id;
 	}
-
-	public void setId(int idMeasure) {
-		this.id = idMeasure;
-	}
-
+	
 	public String getValue() {
 		return this.value;
+	}
+
+	public Date getDate(){
+		return this.date;
+	}
+	
+	@XmlTransient
+	public MeasureType getMeasureDefinition() {
+		return measureDefinition;
+	}
+	
+	// we make this transient for JAXB to avoid and infinite loop on serialization
+	@XmlTransient
+	public Person getPerson() {
+		return person;
+	}
+	
+	@XmlElement(name="measure")
+	public String getMeasureName(){
+		return measureDefinition.getName();
+	}
+	
+	@XmlElement(name="units")
+	public String getMeasureUnits(){
+		return measureDefinition.getMeasureUnits();
+	}
+	
+	public void setId(int idMeasure) {
+		this.id = idMeasure;
 	}
 
 	public void setValue(String value) {
@@ -116,37 +141,12 @@ public class Measurement implements Serializable {
 		this.date = date;
 	}
 	
-	public Date getDate(){
-		return this.date;
-	}
-	
-	@XmlElement(name="measure")
-	public String getMeasureName(){
-		return measureDefinition.getName();
+	public void setMeasureDefinition(MeasureType param) {
+		this.measureDefinition = param;
 	}
 	
 	public void setMeasureName(String name){
 		setMeasureDefinition(MeasureType.getMeasureTypeByName(name));
-	}
-	
-	@XmlElement(name="units")
-	public String getMeasureUnits(){
-		return measureDefinition.getMeasureUnits();
-	}
-
-	@XmlTransient
-	public MeasureType getMeasureDefinition() {
-		return measureDefinition;
-	}
-
-	public void setMeasureDefinition(MeasureType param) {
-		this.measureDefinition = param;
-	}
-
-	// we make this transient for JAXB to avoid and infinite loop on serialization
-	@XmlTransient
-	public Person getPerson() {
-		return person;
 	}
 
 	public void setPerson(Person person) {
