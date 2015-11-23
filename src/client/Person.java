@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * POJO for handling Person response from server
+ */
 @XmlRootElement
 public class Person {
 

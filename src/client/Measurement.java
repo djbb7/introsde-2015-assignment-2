@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * POJO for handling Measurement response from Server
+ */
 @XmlRootElement
 public class Measurement {
 	

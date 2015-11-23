@@ -51,12 +51,12 @@ public class eHealthClient {
 								 +"=> Result: %s\n"
 								 +"=> HTTP Status: %d\n";
 
-	static String mediaTypeHeader = "\n################################################################\n"+
+	static String mediaTypeHeader = "\n###################################################################\n"+
 									"#####\n"+
 									"###   Running tests with Accept and Content-type: %s\n"+
 									"#\n";
 			
-	static String testHeader = "\n################################################################\n"+
+	static String testHeader = "\n###################################################################\n"+
 							   "## TEST %s \n"+
 							   "#--------------------------------------------------------------\n";
 	

@@ -8,6 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * POJO for handling Measurement history response
+ * from server.
+ */
 @XmlRootElement
 public class MeasureHistory {
 
