@@ -1,12 +1,12 @@
 # introsde-2015-assignment-2
 
+###Classmate: Federico Fiorini https://github.com/federico-fiorini/introsde-2015-assignment-2/
+
 This project defines a REST Web Service for managing a database of people and the history of their health measurements (i.e. weight, height, steps walked).
 
 The project is implemented in Java using Jersey, JAXB and JPA. The database is a simple sqlite file. It is an assignment for the Introduction to Service Design and Engineering lecture at UNITN, Winter Semester 2015-16.
 
-The project includes a client as well, which runs several test cases, with the particularity that the client connects to a different classmate's server. The classmate is:
-
-###Classmate: Federico Fiorini (https://github.com/federico-fiorini/introsde-2015-assignment-2/)
+The project includes a client as well, which runs several test cases, with the particularity that the client connects to a different classmate's server. The classmate is Federico Fiorini.
 
 
 ##Package Structure
@@ -33,7 +33,7 @@ The project contains some additional files.
 
 `client-server-json.log`: Output log of running test's against Fiorini's server with Accept and Content-Type headers set to "application/json".
 
-##Targets
+##Execution
 
 This project contains a `build.xml` file which can be run by `ant`. It will download all the required dependencies using ivy. It will also download ivy if it is not installed.
 
