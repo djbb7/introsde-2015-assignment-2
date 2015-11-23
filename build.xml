@@ -53,6 +53,9 @@
         <property name="lib.dir" value="WebContent/WEB-INF/lib" />
         <property name="web.dir" value="." />
         <property name="webcontent.dir" value="WebContent" />
+        <property name="webservice.endpoint" value="https://damp-cliffs-5416.herokuapp.com/rest" />
+        <property name="json.log" value="client-server-json.log" />
+        <property name="xml.log" value="client-server-xml.log" />
         <!-- ================================= 
 	          target: resolve downloads the dependencies to your lib folder              
 	         ================================= -->
@@ -116,12 +119,13 @@
                 </classpath>
             </java>
         </target>
-        <!-- Run the JUnit Tests -->
-        <!-- Output is XML, could also be plain-->
-        <target name="junit">
-            <echo message="Run tests" />
-            <junit printsummary="yes" haltonfailure="no">
-                <!-- Project classpath, must include junit.jar -->
+        <target name="execute.client" depends="execute.client.xml, execute.client.json" />
+        <target name="execute.client.xml" depends="install">
+            <record name="${xml.log}" action="start" append="false" />
+            <java classname="client.eHealthClient" classpath="${build.dir}" fork="true">
+                <arg value="${webservice.endpoint}" />
+                <arg value="application/xml" />
+                <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />
                     <fileset dir="WebContent/WEB-INF/lib">
@@ -129,13 +133,25 @@
                         <include name="*.jar" />
                     </fileset>
                 </classpath>
-                <!-- test class -->
-                <batchtest>
-                    <fileset dir="build">
-                        <include name="**/*Test*.class" /> 
+            </java>
+            <record name="${xml.log}" action="stop" />
+        </target>
+        <target name="execute.client.json" depends="install">
+            <record name="${json.log}" action="start" append="false" />
+            <java classname="client.eHealthClient" classpath="${build.dir}" fork="true">
+                <arg value="${webservice.endpoint}" />
+                <arg value="application/json" />
+                <arg value="$JAVA_OPTS  -cp" />
+                <classpath>
+                    <path location="build" />
+                    <fileset dir="WebContent/WEB-INF/lib">
+                        <include name="**/*.jar" />
+                        <include name="*.jar" />
                     </fileset>
-                </batchtest>
-            </junit>
+                </classpath>
+            </java>
+            <record name="${json.log}" action="stop" />
+
         </target>
         <!-- make sure you have created first the WebContent folder, including a META-INF folder, WEB-INF/web.xml file and WEB-INF/lib folder -->
         <target name="create.war" depends="install">
