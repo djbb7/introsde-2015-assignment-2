@@ -6,8 +6,7 @@ The project is implemented in Java using Jersey, JAXB and JPA. The database is a
 
 The project includes a client as well, which runs several test cases, with the particularity that the client connects to a different classmate's server. The classmate is:
 
-###Federico Fiorini
-###https://github.com/federico-fiorini/introsde-2015-assignment-2/
+###Classmate: Federico Fiorini (https://github.com/federico-fiorini/introsde-2015-assignment-2/)
 
 
 ##Package Structure
@@ -24,6 +23,15 @@ The project is divided into 5 packages. Each package contains:
 
 `client`: The client and necessary files for parsing the content.
 
+##Files included
+
+The project contains some additional files.
+
+`lifestyle.sqlite`: Database file
+
+`client-server-xml.log`: Output log of running test's against Fiorini's server with Accept and Content-Type headers set to "application/xml".
+
+`client-server-json.log`: Output log of running test's against Fiorini's server with Accept and Content-Type headers set to "application/json".
 
 ##Targets
 
